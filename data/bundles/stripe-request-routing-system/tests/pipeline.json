@@ -1,0 +1,109 @@
+{
+  "target": "solveRequestRoutingSystem",
+  "cases": [
+    {
+      "id": "example-1-register-and-health",
+      "args": [
+        "REGISTER us-west 38 -122 100\nREGISTER us-east 41 -74 150\nREGISTER us-west 50 -100 50\nREGISTER invalid-node 91 0 100\nREGISTER invalid-cap 0 0 0\nSET_HEALTHY us-east false\nSET_HEALTHY fake-node true"
+      ],
+      "expect": {
+        "returns": [
+          "OK",
+          "OK",
+          "ERROR",
+          "ERROR",
+          "ERROR",
+          "OK",
+          "ERROR"
+        ]
+      },
+      "why": "duplicate names, latitude 91, capacity 0, unknown name in SET_HEALTHY"
+    },
+    {
+      "id": "example-2-distance",
+      "args": [
+        "DISTANCE 38 -122 41 -74\nDISTANCE 0 0 0 0\nDISTANCE 91 0 0 0"
+      ],
+      "expect": {
+        "returns": [
+          "4080",
+          "0",
+          "ERROR"
+        ]
+      },
+      "why": "Haversine result and rounding"
+    },
+    {
+      "id": "example-3-routing",
+      "args": [
+        "REGISTER node-A 0 0 1\nREGISTER node-B 0 0 1\nREGISTER node-C 10 10 100\nSET_HEALTHY node-C false\nROUTE 0 0\nROUTE 0 0\nROUTE 0 0"
+      ],
+      "expect": {
+        "returns": [
+          "OK",
+          "OK",
+          "OK",
+          "OK",
+          "node-A 0 node-A,node-B",
+          "node-B 0 node-A,node-B",
+          "None node-A,node-B"
+        ]
+      },
+      "why": "unhealthy nodes skipped, name tie-break, capacity running out"
+    },
+    {
+      "id": "example-4-parsing-and-blank-lines",
+      "args": [
+        "register a 0 0 1\nREGISTER a abc 0 1\nREGISTER a 0 0 1.5\nREGISTER a 0 0\n\nREGISTER a 1.5 -2 1\nROUTE 91 0\nDISTANCE 0 0 0\nPING\nROUTE 1.5 -2"
+      ],
+      "expect": {
+        "returns": [
+          "ERROR",
+          "ERROR",
+          "ERROR",
+          "ERROR",
+          "OK",
+          "ERROR",
+          "ERROR",
+          "ERROR",
+          "a 0 a"
+        ]
+      },
+      "why": "lowercase command, bad fields, blank line (no output), unknown command"
+    },
+    {
+      "id": "example-5-mixed",
+      "args": [
+        "REGISTER us-west 38 -122 100\nREGISTER us-east 41 -74 150\nREGISTER eu-west 52 0 200\nSET_HEALTHY us-east false\nREGISTER us-west 50 -100 50\nREGISTER invalid 91 0 100\nREGISTER invalid2 0 0 0"
+      ],
+      "expect": {
+        "returns": [
+          "OK",
+          "OK",
+          "OK",
+          "OK",
+          "ERROR",
+          "ERROR",
+          "ERROR"
+        ]
+      },
+      "why": "registration after a health change"
+    },
+    {
+      "id": "whitespace-and-empty-input",
+      "args": [
+        "   \n\nREGISTER   a    0   0   5\n   \nROUTE 0 0"
+      ],
+      "expect": {
+        "returns": [
+          "OK",
+          "a 0 a"
+        ]
+      },
+      "why": "blank lines produce no output and extra spacing is fine",
+      "tags": [
+        "edge"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,363 @@
+{
+  "target": "handle_route",
+  "cases": [
+    {
+      "id": "chooses-nearest-and-loads-it",
+      "args": [
+        [
+          "0",
+          "0"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "node-A 0 node-A,node-B",
+        "state": {
+          "dcs": {
+            "node-A": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 1
+            },
+            "node-B": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 0
+            }
+          }
+        }
+      },
+      "why": "A wins the tie by name and its load goes to 1",
+      "given": {
+        "dcs": {
+          "node-A": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          },
+          "node-B": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "happy",
+        "state"
+      ]
+    },
+    {
+      "id": "skips-the-full-one",
+      "args": [
+        [
+          "0",
+          "0"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "node-B 0 node-A,node-B",
+        "state": {
+          "dcs": {
+            "node-A": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 1
+            },
+            "node-B": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 1
+            }
+          }
+        }
+      },
+      "why": "A is full, so B is chosen -- but A is still listed as a candidate",
+      "given": {
+        "dcs": {
+          "node-A": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 1
+          },
+          "node-B": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "state"
+      ]
+    },
+    {
+      "id": "all-full",
+      "args": [
+        [
+          "0",
+          "0"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "None node-A,node-B",
+        "state": {
+          "dcs": {
+            "node-A": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 1
+            },
+            "node-B": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 1
+            }
+          }
+        }
+      },
+      "why": "every candidate is full: None, but candidates are still listed",
+      "given": {
+        "dcs": {
+          "node-A": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 1
+          },
+          "node-B": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 1
+          }
+        }
+      },
+      "tags": [
+        "edge"
+      ]
+    },
+    {
+      "id": "no-healthy-candidates",
+      "args": [
+        [
+          "0",
+          "0"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "None",
+        "state": {
+          "dcs": {
+            "node-A": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": false,
+              "load": 0
+            }
+          }
+        }
+      },
+      "why": "no candidates at all means bare None, with no candidate list",
+      "given": {
+        "dcs": {
+          "node-A": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": false,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "edge"
+      ]
+    },
+    {
+      "id": "rounded-distance-in-output",
+      "args": [
+        [
+          "10",
+          "10"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "node-A 1569 node-A,node-B",
+        "state": {
+          "dcs": {
+            "node-A": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 1
+            },
+            "node-B": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 0
+            }
+          }
+        }
+      },
+      "why": "the printed distance is rounded, though ranking used the exact one",
+      "given": {
+        "dcs": {
+          "node-A": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          },
+          "node-B": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "trap"
+      ]
+    },
+    {
+      "id": "invalid-latitude",
+      "args": [
+        [
+          "91",
+          "0"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "ERROR",
+        "state": {
+          "dcs": {
+            "node-A": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 0
+            },
+            "node-B": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 0
+            }
+          }
+        }
+      },
+      "why": "an invalid coordinate changes nothing",
+      "given": {
+        "dcs": {
+          "node-A": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          },
+          "node-B": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "error",
+        "state"
+      ]
+    },
+    {
+      "id": "missing-field",
+      "args": [
+        [
+          "0"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "ERROR",
+        "state": {
+          "dcs": {
+            "node-A": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 0
+            },
+            "node-B": {
+              "lat": 0.0,
+              "lon": 0.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 0
+            }
+          }
+        }
+      },
+      "why": "field count must be exact",
+      "given": {
+        "dcs": {
+          "node-A": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          },
+          "node-B": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "error"
+      ]
+    }
+  ]
+}

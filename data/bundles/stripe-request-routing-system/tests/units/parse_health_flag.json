@@ -1,0 +1,84 @@
+{
+  "target": "parse_health_flag",
+  "cases": [
+    {
+      "id": "true",
+      "args": [
+        "true"
+      ],
+      "expect": {
+        "returns": true
+      },
+      "why": "the literal true",
+      "tags": [
+        "happy"
+      ]
+    },
+    {
+      "id": "false",
+      "args": [
+        "false"
+      ],
+      "expect": {
+        "returns": false
+      },
+      "why": "the literal false"
+    },
+    {
+      "id": "upper",
+      "args": [
+        "TRUE"
+      ],
+      "expect": {
+        "returns": true
+      },
+      "why": "letter case does not matter"
+    },
+    {
+      "id": "mixed",
+      "args": [
+        "FaLsE"
+      ],
+      "expect": {
+        "returns": false
+      },
+      "why": "letter case does not matter"
+    },
+    {
+      "id": "yes",
+      "args": [
+        "yes"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "only true and false are accepted"
+    },
+    {
+      "id": "one",
+      "args": [
+        "1"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "1 is not a flag",
+      "tags": [
+        "edge"
+      ]
+    },
+    {
+      "id": "empty",
+      "args": [
+        ""
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "an empty field is not a flag",
+      "tags": [
+        "edge"
+      ]
+    }
+  ]
+}

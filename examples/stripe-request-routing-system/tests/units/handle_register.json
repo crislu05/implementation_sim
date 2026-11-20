@@ -1,0 +1,238 @@
+{
+  "target": "handle_register",
+  "cases": [
+    {
+      "id": "valid",
+      "args": [
+        [
+          "us-west",
+          "38",
+          "-122",
+          "100"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "OK",
+        "state": {
+          "dcs": {
+            "us-west": {
+              "lat": 38.0,
+              "lon": -122.0,
+              "capacity": 100,
+              "healthy": true,
+              "load": 0
+            }
+          }
+        }
+      },
+      "why": "a new record is stored with healthy=True and load=0",
+      "given": {
+        "dcs": {}
+      },
+      "tags": [
+        "happy",
+        "state"
+      ]
+    },
+    {
+      "id": "decimal-coordinates",
+      "args": [
+        [
+          "a",
+          "1.5",
+          "-2",
+          "1"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "OK",
+        "state": {
+          "dcs": {
+            "a": {
+              "lat": 1.5,
+              "lon": -2.0,
+              "capacity": 1,
+              "healthy": true,
+              "load": 0
+            }
+          }
+        }
+      },
+      "why": "decimals are fine for coordinates",
+      "given": {
+        "dcs": {}
+      }
+    },
+    {
+      "id": "duplicate-name",
+      "args": [
+        [
+          "us-west",
+          "50",
+          "-100",
+          "50"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "ERROR",
+        "state": {
+          "dcs": {
+            "us-west": {
+              "lat": 38.0,
+              "lon": -122.0,
+              "capacity": 100,
+              "healthy": true,
+              "load": 0
+            }
+          }
+        }
+      },
+      "why": "the name is taken, and the existing record must not change",
+      "given": {
+        "dcs": {
+          "us-west": {
+            "lat": 38.0,
+            "lon": -122.0,
+            "capacity": 100,
+            "healthy": true,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "error",
+        "state"
+      ]
+    },
+    {
+      "id": "latitude-out-of-range",
+      "args": [
+        [
+          "x",
+          "91",
+          "0",
+          "100"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "ERROR",
+        "state": {
+          "dcs": {}
+        }
+      },
+      "why": "a failed REGISTER does not reserve the name",
+      "given": {
+        "dcs": {}
+      },
+      "tags": [
+        "error",
+        "state"
+      ]
+    },
+    {
+      "id": "capacity-not-whole",
+      "args": [
+        [
+          "x",
+          "0",
+          "0",
+          "1.5"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "ERROR",
+        "state": {
+          "dcs": {}
+        }
+      },
+      "why": "capacity must be whole",
+      "given": {
+        "dcs": {}
+      },
+      "tags": [
+        "error"
+      ]
+    },
+    {
+      "id": "capacity-zero",
+      "args": [
+        [
+          "x",
+          "0",
+          "0",
+          "0"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "ERROR",
+        "state": {
+          "dcs": {}
+        }
+      },
+      "why": "capacity 0 is invalid",
+      "given": {
+        "dcs": {}
+      },
+      "tags": [
+        "error"
+      ]
+    },
+    {
+      "id": "missing-field",
+      "args": [
+        [
+          "x",
+          "0",
+          "0"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "ERROR",
+        "state": {
+          "dcs": {}
+        }
+      },
+      "why": "three fields instead of four",
+      "given": {
+        "dcs": {}
+      },
+      "tags": [
+        "error"
+      ]
+    },
+    {
+      "id": "extra-field",
+      "args": [
+        [
+          "x",
+          "0",
+          "0",
+          "1",
+          "extra"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "ERROR",
+        "state": {
+          "dcs": {}
+        }
+      },
+      "why": "field count must be exact",
+      "given": {
+        "dcs": {}
+      },
+      "tags": [
+        "error",
+        "edge"
+      ]
+    }
+  ]
+}

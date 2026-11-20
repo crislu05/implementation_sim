@@ -1,0 +1,89 @@
+{
+  "target": "haversine_distance_km",
+  "cases": [
+    {
+      "id": "sf-to-ny",
+      "args": [
+        38,
+        -122,
+        41,
+        -74
+      ],
+      "expect": {
+        "returns": 4080.0063492866607,
+        "match": "approx",
+        "tol": 0.01
+      },
+      "why": "the anchor value from the spec: rounds to 4080",
+      "tags": [
+        "happy"
+      ]
+    },
+    {
+      "id": "same-point",
+      "args": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "expect": {
+        "returns": 0.0,
+        "match": "approx",
+        "tol": 1e-09
+      },
+      "why": "zero distance"
+    },
+    {
+      "id": "one-degree-of-longitude",
+      "args": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "expect": {
+        "returns": 111.19492664455873,
+        "match": "approx",
+        "tol": 0.01
+      },
+      "why": "one degree at the equator"
+    },
+    {
+      "id": "pole-to-pole",
+      "args": [
+        -90,
+        0,
+        90,
+        0
+      ],
+      "expect": {
+        "returns": 20015.086796020572,
+        "match": "approx",
+        "tol": 0.01
+      },
+      "why": "half the circumference",
+      "tags": [
+        "boundary"
+      ]
+    },
+    {
+      "id": "exact-not-rounded",
+      "args": [
+        0,
+        0,
+        10,
+        10
+      ],
+      "expect": {
+        "returns": 1568.520556798576,
+        "match": "approx",
+        "tol": 0.001
+      },
+      "why": "this function must return the exact distance, never a rounded one",
+      "tags": [
+        "trap"
+      ]
+    }
+  ]
+}

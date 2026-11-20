@@ -1,0 +1,126 @@
+{
+  "target": "is_plain_decimal",
+  "cases": [
+    {
+      "id": "integer",
+      "args": [
+        "0"
+      ],
+      "expect": {
+        "returns": true
+      },
+      "why": "plain digits are valid",
+      "tags": [
+        "happy"
+      ]
+    },
+    {
+      "id": "negative",
+      "args": [
+        "-2"
+      ],
+      "expect": {
+        "returns": true
+      },
+      "why": "a leading minus is allowed"
+    },
+    {
+      "id": "decimal",
+      "args": [
+        "1.5"
+      ],
+      "expect": {
+        "returns": true
+      },
+      "why": "digits, dot, digits"
+    },
+    {
+      "id": "plus-sign",
+      "args": [
+        "+3"
+      ],
+      "expect": {
+        "returns": false
+      },
+      "why": "a leading plus is not allowed",
+      "tags": [
+        "edge"
+      ]
+    },
+    {
+      "id": "exponent",
+      "args": [
+        "1e5"
+      ],
+      "expect": {
+        "returns": false
+      },
+      "why": "scientific notation is not a plain decimal",
+      "tags": [
+        "edge"
+      ]
+    },
+    {
+      "id": "leading-dot",
+      "args": [
+        ".5"
+      ],
+      "expect": {
+        "returns": false
+      },
+      "why": "digits are required before the dot",
+      "tags": [
+        "edge"
+      ]
+    },
+    {
+      "id": "trailing-dot",
+      "args": [
+        "5."
+      ],
+      "expect": {
+        "returns": false
+      },
+      "why": "digits are required after the dot",
+      "tags": [
+        "edge"
+      ]
+    },
+    {
+      "id": "letters",
+      "args": [
+        "abc"
+      ],
+      "expect": {
+        "returns": false
+      },
+      "why": "not a number at all"
+    },
+    {
+      "id": "empty",
+      "args": [
+        ""
+      ],
+      "expect": {
+        "returns": false
+      },
+      "why": "an empty field is not a number",
+      "tags": [
+        "edge"
+      ]
+    },
+    {
+      "id": "minus-only",
+      "args": [
+        "-"
+      ],
+      "expect": {
+        "returns": false
+      },
+      "why": "a sign with no digits",
+      "tags": [
+        "edge"
+      ]
+    }
+  ]
+}

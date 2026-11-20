@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>implementation_sim</title>
+<link rel="stylesheet" href="/static/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="/static/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>⚙</text></svg>">
+</head>
+<body>
+
+<div id="library" class="screen">
+  <div class="library-inner">
+    <h1>implementation_sim</h1>
+    <p class="muted">Build a real system against a real spec. Local bundles, local workspaces, local runs.</p>
+    <div class="import-row">
+      <button id="import-zip-btn" class="btn primary">Import bundle (.zip)</button>
+      <input type="file" id="import-zip" accept=".zip" hidden>
+      <input type="text" id="import-path" placeholder="…or paste a bundle directory path">
+      <button id="import-path-btn" class="btn">Import</button>
+    </div>
+    <div id="import-problems" class="problems hidden"></div>
+    <div id="bundle-list" class="bundle-list"></div>
+    <p class="muted small" id="home-path"></p>
+  </div>
+</div>
+
+<div id="workbench" class="screen hidden">
+  <header class="topbar">
+    <div class="brand">
+      <span class="source" id="bundle-source"></span>
+      <span class="title" id="bundle-title"></span>
+    </div>
+    <div class="topbar-right">
+      <span class="timer" id="timer">00:00</span>
+      <span class="saved" id="save-state">saved</span>
+      <select id="attempt-select" title="attempt"></select>
+      <button class="btn" id="new-attempt">New attempt</button>
+      <button class="btn" id="run-unit" title="⌘↵">Run function</button>
+      <button class="btn" id="run-pipeline" title="⌘⇧↵">Run pipeline</button>
+      <button class="btn primary" id="run-all">Run all</button>
+      <button class="btn ghost" id="back">Library</button>
+    </div>
+  </header>
+
+  <main class="panes">
+    <section class="pane left" id="pane-left">
+      <div class="tabs">
+        <button class="tab active" data-tab="problem">Problem</button>
+        <button class="tab" data-tab="functions">Functions</button>
+      </div>
+      <div class="tab-body" id="tab-problem">
+        <nav class="doc-nav" id="doc-nav"></nav>
+        <article class="markdown" id="doc-body"></article>
+      </div>
+      <div class="tab-body hidden" id="tab-functions">
+        <div class="unit-list" id="unit-list"></div>
+        <article class="markdown unit-spec" id="unit-spec"></article>
+      </div>
+    </section>
+
+    <div class="gutter" data-resize="left"></div>
+
+    <section class="pane center">
+      <div class="editor-head">
+        <span class="file">solution.py</span>
+        <span class="muted small" id="editor-hint"></span>
+      </div>
+      <div id="editor"></div>
+    </section>
+
+    <div class="gutter" data-resize="right"></div>
+
+    <section class="pane right">
+      <div class="tabs">
+        <button class="tab active" data-rtab="results">Results</button>
+        <button class="tab" data-rtab="console">Console</button>
+        <button class="tab" data-rtab="history">History</button>
+      </div>
+      <div class="run-summary" id="run-summary"></div>
+      <div class="tab-body" id="rtab-results"><div class="empty">Run something to see results.</div></div>
+      <div class="tab-body hidden" id="rtab-console"><div class="empty">No output yet.</div></div>
+      <div class="tab-body hidden" id="rtab-history"><div class="empty">No runs yet.</div></div>
+    </section>
+  </main>
+</div>
+
+<script src="/static/vendor/marked.min.js"></script>
+<script src="/static/vendor/katex/katex.min.js"></script>
+<script src="/static/vendor/katex/auto-render.min.js"></script>
+<script src="/static/vendor/vs/loader.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

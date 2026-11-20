@@ -1,0 +1,224 @@
+{
+  "run_id": "20261117T185149-parse_latitude",
+  "at": "2026-11-17T18:51:49+00:00",
+  "selection": "parse_latitude",
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9
+  },
+  "report": {
+    "targets": [
+      {
+        "target": "parse_latitude",
+        "kind": "pure",
+        "signature": "def parse_latitude(text: str) -> float | None",
+        "results": [
+          {
+            "case_id": "plain",
+            "why": "valid latitude becomes a float",
+            "tags": [
+              "happy"
+            ],
+            "visible": true,
+            "call": "parse_latitude('38')",
+            "duration_ms": 0.09,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 38.0,
+                "expected_repr": "38.0",
+                "actual": 38.0,
+                "actual_repr": "38.0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "decimal",
+            "why": "decimals are fine",
+            "tags": [],
+            "visible": true,
+            "call": "parse_latitude('1.5')",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 1.5,
+                "expected_repr": "1.5",
+                "actual": 1.5,
+                "actual_repr": "1.5",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "negative",
+            "why": "the lower bound is inclusive",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_latitude('-90')",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": -90.0,
+                "expected_repr": "-90.0",
+                "actual": -90.0,
+                "actual_repr": "-90.0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "upper-bound",
+            "why": "the upper bound is inclusive",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_latitude('90')",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 90.0,
+                "expected_repr": "90.0",
+                "actual": 90.0,
+                "actual_repr": "90.0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "just-over",
+            "why": "just past the upper bound",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_latitude('90.1')",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "out-of-range",
+            "why": "latitude 91 is out of range",
+            "tags": [],
+            "visible": true,
+            "call": "parse_latitude('91')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "under-range",
+            "why": "below the lower bound",
+            "tags": [],
+            "visible": true,
+            "call": "parse_latitude('-91')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "bad-format",
+            "why": "format is checked before range",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "parse_latitude('.5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "letters",
+            "why": "not a number",
+            "tags": [],
+            "visible": true,
+            "call": "parse_latitude('abc')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          }
+        ],
+        "status": "pass",
+        "passed": 9,
+        "total": 9
+      }
+    ],
+    "import_output": ""
+  }
+}

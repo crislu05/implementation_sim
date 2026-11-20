@@ -1,0 +1,516 @@
+{
+  "run_id": "20261117T184900-all",
+  "at": "2026-11-17T18:49:00+00:00",
+  "selection": "all",
+  "summary": {
+    "passed": 9,
+    "failed": 7,
+    "total": 16
+  },
+  "report": {
+    "targets": [
+      {
+        "target": "is_plain_decimal",
+        "kind": "pure",
+        "signature": "def is_plain_decimal(text: str) -> bool",
+        "results": [
+          {
+            "case_id": "integer",
+            "why": "plain digits are valid",
+            "tags": [
+              "happy"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('0')",
+            "duration_ms": 0.08,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": true,
+                "expected_repr": "True",
+                "actual": true,
+                "actual_repr": "True",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "negative",
+            "why": "a leading minus is allowed",
+            "tags": [],
+            "visible": true,
+            "call": "is_plain_decimal('-2')",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": true,
+                "expected_repr": "True",
+                "actual": true,
+                "actual_repr": "True",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "decimal",
+            "why": "digits, dot, digits",
+            "tags": [],
+            "visible": true,
+            "call": "is_plain_decimal('1.5')",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": true,
+                "expected_repr": "True",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "plus-sign",
+            "why": "a leading plus is not allowed",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('+3')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "exponent",
+            "why": "scientific notation is not a plain decimal",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('1e5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "leading-dot",
+            "why": "digits are required before the dot",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('.5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "trailing-dot",
+            "why": "digits are required after the dot",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('5.')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "letters",
+            "why": "not a number at all",
+            "tags": [],
+            "visible": true,
+            "call": "is_plain_decimal('abc')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "empty",
+            "why": "an empty field is not a number",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "minus-only",
+            "why": "a sign with no digits",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('-')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          }
+        ],
+        "status": "fail",
+        "passed": 9,
+        "total": 10
+      },
+      {
+        "target": "parse_latitude",
+        "kind": "pure",
+        "signature": "def parse_latitude(text: str) -> float | None",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'parse_latitude' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "parse_longitude",
+        "kind": "pure",
+        "signature": "def parse_longitude(text: str) -> float | None",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'parse_longitude' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "parse_capacity",
+        "kind": "pure",
+        "signature": "def parse_capacity(text: str) -> int | None",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'parse_capacity' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "parse_health_flag",
+        "kind": "pure",
+        "signature": "def parse_health_flag(text: str) -> bool | None",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'parse_health_flag' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "haversine_distance_km",
+        "kind": "pure",
+        "signature": "def haversine_distance_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'haversine_distance_km' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "round_distance",
+        "kind": "pure",
+        "signature": "def round_distance(distance_km: float) -> int",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'round_distance' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "handle_register",
+        "kind": "stateful",
+        "signature": "def handle_register(fields: list[str], datacenters: dict) -> str",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'handle_register' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "handle_set_healthy",
+        "kind": "stateful",
+        "signature": "def handle_set_healthy(fields: list[str], datacenters: dict) -> str",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'handle_set_healthy' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "handle_distance",
+        "kind": "pure",
+        "signature": "def handle_distance(fields: list[str]) -> str",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'handle_distance' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "rank_healthy_candidates",
+        "kind": "pure",
+        "signature": "def rank_healthy_candidates(lat: float, lon: float, datacenters: dict) -> list[tuple[str, float]]",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'rank_healthy_candidates' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "handle_route",
+        "kind": "stateful",
+        "signature": "def handle_route(fields: list[str], datacenters: dict) -> str",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'handle_route' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "solveRequestRoutingSystem",
+        "kind": "pure",
+        "signature": "def solveRequestRoutingSystem(input)",
+        "results": [
+          {
+            "case_id": "example-1-register-and-health",
+            "why": "duplicate names, latitude 91, capacity 0, unknown name in SET_HEALTHY",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('REGISTER us-west 38 -122 100\\nREGISTER us-east 41 -74 150\\nREGISTER us-west 50 -100 50\\nREGISTER invalid-node 91 0 100\\nREGISTER invalid-cap 0 0 0\\nSET_HEALTHY... [43 more chars])",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "OK",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "OK",
+                  "ERROR"
+                ],
+                "expected_repr": "['OK', 'OK', 'ERROR', 'ERROR', 'ERROR', 'OK', 'ERROR']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "example-2-distance",
+            "why": "Haversine result and rounding",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('DISTANCE 38 -122 41 -74\\nDISTANCE 0 0 0 0\\nDISTANCE 91 0 0 0')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "4080",
+                  "0",
+                  "ERROR"
+                ],
+                "expected_repr": "['4080', '0', 'ERROR']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "example-3-routing",
+            "why": "unhealthy nodes skipped, name tie-break, capacity running out",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('REGISTER node-A 0 0 1\\nREGISTER node-B 0 0 1\\nREGISTER node-C 10 10 100\\nSET_HEALTHY node-C false\\nROUTE 0 0\\nROUTE 0 0\\nROUTE 0 0')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "OK",
+                  "OK",
+                  "OK",
+                  "OK",
+                  "node-A 0 node-A,node-B",
+                  "node-B 0 node-A,node-B",
+                  "None node-A,node-B"
+                ],
+                "expected_repr": "['OK', 'OK', 'OK', 'OK', 'node-A 0 node-A,node-B', 'node-B 0 node-A,node-B', 'None node-A,node-B']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "example-4-parsing-and-blank-lines",
+            "why": "lowercase command, bad fields, blank line (no output), unknown command",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('register a 0 0 1\\nREGISTER a abc 0 1\\nREGISTER a 0 0 1.5\\nREGISTER a 0 0\\n\\nREGISTER a 1.5 -2 1\\nROUTE 91 0\\nDISTANCE 0 0 0\\nPING\\nROUTE 1.5 -2')",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "a 0 a"
+                ],
+                "expected_repr": "['ERROR', 'ERROR', 'ERROR', 'ERROR', 'OK', 'ERROR', 'ERROR', 'ERROR', 'a 0 a']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "example-5-mixed",
+            "why": "registration after a health change",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('REGISTER us-west 38 -122 100\\nREGISTER us-east 41 -74 150\\nREGISTER eu-west 52 0 200\\nSET_HEALTHY us-east false\\nREGISTER us-west 50 -100 50\\nREGISTER invalid ... [34 more chars])",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "OK",
+                  "OK",
+                  "OK",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR"
+                ],
+                "expected_repr": "['OK', 'OK', 'OK', 'OK', 'ERROR', 'ERROR', 'ERROR']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "whitespace-and-empty-input",
+            "why": "blank lines produce no output and extra spacing is fine",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('   \\n\\nREGISTER   a    0   0   5\\n   \\nROUTE 0 0')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "OK",
+                  "a 0 a"
+                ],
+                "expected_repr": "['OK', 'a 0 a']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          }
+        ],
+        "status": "fail",
+        "passed": 0,
+        "total": 6
+      }
+    ],
+    "import_output": ""
+  }
+}

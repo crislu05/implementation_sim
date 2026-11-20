@@ -1,0 +1,100 @@
+{
+  "target": "parse_capacity",
+  "cases": [
+    {
+      "id": "plain",
+      "args": [
+        "100"
+      ],
+      "expect": {
+        "returns": 100
+      },
+      "why": "digits become an int",
+      "tags": [
+        "happy"
+      ]
+    },
+    {
+      "id": "one",
+      "args": [
+        "1"
+      ],
+      "expect": {
+        "returns": 1
+      },
+      "why": "1 is the smallest allowed capacity",
+      "tags": [
+        "boundary"
+      ]
+    },
+    {
+      "id": "max",
+      "args": [
+        "1000000000"
+      ],
+      "expect": {
+        "returns": 1000000000
+      },
+      "why": "the maximum is inclusive",
+      "tags": [
+        "boundary"
+      ]
+    },
+    {
+      "id": "over-max",
+      "args": [
+        "1000000001"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "one past the maximum",
+      "tags": [
+        "boundary"
+      ]
+    },
+    {
+      "id": "zero",
+      "args": [
+        "0"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "0 is not a usable capacity"
+    },
+    {
+      "id": "decimal",
+      "args": [
+        "1.5"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "capacity must be whole"
+    },
+    {
+      "id": "negative",
+      "args": [
+        "-5"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "a minus sign is not allowed for capacity",
+      "tags": [
+        "edge"
+      ]
+    },
+    {
+      "id": "letters",
+      "args": [
+        "abc"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "not a number"
+    }
+  ]
+}

@@ -1,0 +1,447 @@
+{
+  "run_id": "20261118T161530-handle_route",
+  "at": "2026-11-18T16:15:30+00:00",
+  "selection": "handle_route",
+  "summary": {
+    "passed": 3,
+    "failed": 4,
+    "total": 7
+  },
+  "report": {
+    "targets": [
+      {
+        "target": "handle_route",
+        "kind": "stateful",
+        "signature": "def handle_route(fields: list[str], datacenters: dict) -> str",
+        "results": [
+          {
+            "case_id": "chooses-nearest-and-loads-it",
+            "why": "A wins the tie by name and its load goes to 1",
+            "tags": [
+              "happy",
+              "state"
+            ],
+            "visible": true,
+            "call": "handle_route(['0', '0'], {'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 2, 'healthy': True, 'load': 0}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}})",
+            "duration_ms": 0.11,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": "node-A 0 node-A,node-B",
+                "expected_repr": "'node-A 0 node-A,node-B'",
+                "actual": "node-A 0.0 node-A,node-B",
+                "actual_repr": "'node-A 0.0 node-A,node-B'",
+                "match": "equal"
+              },
+              {
+                "label": "state: dcs",
+                "ok": false,
+                "expected": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 1
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  }
+                },
+                "expected_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}}",
+                "actual": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 2,
+                    "healthy": true,
+                    "load": 0
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  }
+                },
+                "actual_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 2, 'healthy': True, 'load': 0}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}}",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "skips-the-full-one",
+            "why": "A is full, so B is chosen -- but A is still listed as a candidate",
+            "tags": [
+              "state"
+            ],
+            "visible": true,
+            "call": "handle_route(['0', '0'], {'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 2, 'healthy': True, 'load': 0}})",
+            "duration_ms": 0.02,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": "node-B 0 node-A,node-B",
+                "expected_repr": "'node-B 0 node-A,node-B'",
+                "actual": "node-B 0.0 node-A,node-B",
+                "actual_repr": "'node-B 0.0 node-A,node-B'",
+                "match": "equal"
+              },
+              {
+                "label": "state: dcs",
+                "ok": false,
+                "expected": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 1
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 1
+                  }
+                },
+                "expected_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}}",
+                "actual": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 1
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 2,
+                    "healthy": true,
+                    "load": 0
+                  }
+                },
+                "actual_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 2, 'healthy': True, 'load': 0}}",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "all-full",
+            "why": "every candidate is full: None, but candidates are still listed",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "handle_route(['0', '0'], {'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}})",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": "None node-A,node-B",
+                "expected_repr": "'None node-A,node-B'",
+                "actual": "None node-A,node-B",
+                "actual_repr": "'None node-A,node-B'",
+                "match": "equal"
+              },
+              {
+                "label": "state: dcs",
+                "ok": true,
+                "expected": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 1
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 1
+                  }
+                },
+                "expected_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}}",
+                "actual": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 1
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 1
+                  }
+                },
+                "actual_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}}",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "no-healthy-candidates",
+            "why": "no candidates at all means bare None, with no candidate list",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "handle_route(['0', '0'], {'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': False, 'load': 0}})",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": "None",
+                "expected_repr": "'None'",
+                "actual": "None",
+                "actual_repr": "'None'",
+                "match": "equal"
+              },
+              {
+                "label": "state: dcs",
+                "ok": true,
+                "expected": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": false,
+                    "load": 0
+                  }
+                },
+                "expected_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': False, 'load': 0}}",
+                "actual": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": false,
+                    "load": 0
+                  }
+                },
+                "actual_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': False, 'load': 0}}",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "rounded-distance-in-output",
+            "why": "the printed distance is rounded, though ranking used the exact one",
+            "tags": [
+              "trap"
+            ],
+            "visible": true,
+            "call": "handle_route(['10', '10'], {'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 2, 'healthy': True, 'load': 0}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}})",
+            "duration_ms": 0.02,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": "node-A 1569 node-A,node-B",
+                "expected_repr": "'node-A 1569 node-A,node-B'",
+                "actual": "node-A 1568.520556798576 node-A,node-B",
+                "actual_repr": "'node-A 1568.520556798576 node-A,node-B'",
+                "match": "equal"
+              },
+              {
+                "label": "state: dcs",
+                "ok": false,
+                "expected": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 1
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  }
+                },
+                "expected_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 1}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}}",
+                "actual": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 2,
+                    "healthy": true,
+                    "load": 0
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  }
+                },
+                "actual_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 2, 'healthy': True, 'load': 0}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}}",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "invalid-latitude",
+            "why": "an invalid coordinate changes nothing",
+            "tags": [
+              "error",
+              "state"
+            ],
+            "visible": true,
+            "call": "handle_route(['91', '0'], {'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}})",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": "ERROR",
+                "expected_repr": "'ERROR'",
+                "actual": "ERROR",
+                "actual_repr": "'ERROR'",
+                "match": "equal"
+              },
+              {
+                "label": "state: dcs",
+                "ok": true,
+                "expected": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  }
+                },
+                "expected_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}}",
+                "actual": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  }
+                },
+                "actual_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}}",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "missing-field",
+            "why": "field count must be exact",
+            "tags": [
+              "error"
+            ],
+            "visible": true,
+            "call": "handle_route(['0'], {'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}})",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": "ERROR",
+                "expected_repr": "'ERROR'",
+                "actual": "ERRPR",
+                "actual_repr": "'ERRPR'",
+                "match": "equal"
+              },
+              {
+                "label": "state: dcs",
+                "ok": true,
+                "expected": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  }
+                },
+                "expected_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}}",
+                "actual": {
+                  "node-A": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  },
+                  "node-B": {
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "capacity": 1,
+                    "healthy": true,
+                    "load": 0
+                  }
+                },
+                "actual_repr": "{'node-A': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}, 'node-B': {'lat': 0.0, 'lon': 0.0, 'capacity': 1, 'healthy': True, 'load': 0}}",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          }
+        ],
+        "status": "fail",
+        "passed": 3,
+        "total": 7
+      }
+    ],
+    "import_output": ""
+  }
+}

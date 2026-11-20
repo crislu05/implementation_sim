@@ -1,0 +1,1437 @@
+{
+  "run_id": "20261117T191800-all",
+  "at": "2026-11-17T19:18:00+00:00",
+  "selection": "all",
+  "summary": {
+    "passed": 51,
+    "failed": 6,
+    "total": 57
+  },
+  "report": {
+    "targets": [
+      {
+        "target": "is_plain_decimal",
+        "kind": "pure",
+        "signature": "def is_plain_decimal(text: str) -> bool",
+        "results": [
+          {
+            "case_id": "integer",
+            "why": "plain digits are valid",
+            "tags": [
+              "happy"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('0')",
+            "duration_ms": 0.05,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": true,
+                "expected_repr": "True",
+                "actual": true,
+                "actual_repr": "True",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "negative",
+            "why": "a leading minus is allowed",
+            "tags": [],
+            "visible": true,
+            "call": "is_plain_decimal('-2')",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": true,
+                "expected_repr": "True",
+                "actual": true,
+                "actual_repr": "True",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "decimal",
+            "why": "digits, dot, digits",
+            "tags": [],
+            "visible": true,
+            "call": "is_plain_decimal('1.5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": true,
+                "expected_repr": "True",
+                "actual": true,
+                "actual_repr": "True",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "plus-sign",
+            "why": "a leading plus is not allowed",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('+3')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "exponent",
+            "why": "scientific notation is not a plain decimal",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('1e5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "leading-dot",
+            "why": "digits are required before the dot",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('.5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "trailing-dot",
+            "why": "digits are required after the dot",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('5.')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "letters",
+            "why": "not a number at all",
+            "tags": [],
+            "visible": true,
+            "call": "is_plain_decimal('abc')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "empty",
+            "why": "an empty field is not a number",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "minus-only",
+            "why": "a sign with no digits",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "is_plain_decimal('-')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          }
+        ],
+        "status": "pass",
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "target": "parse_latitude",
+        "kind": "pure",
+        "signature": "def parse_latitude(text: str) -> float | None",
+        "results": [
+          {
+            "case_id": "plain",
+            "why": "valid latitude becomes a float",
+            "tags": [
+              "happy"
+            ],
+            "visible": true,
+            "call": "parse_latitude('38')",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 38.0,
+                "expected_repr": "38.0",
+                "actual": 38.0,
+                "actual_repr": "38.0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "decimal",
+            "why": "decimals are fine",
+            "tags": [],
+            "visible": true,
+            "call": "parse_latitude('1.5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 1.5,
+                "expected_repr": "1.5",
+                "actual": 1.5,
+                "actual_repr": "1.5",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "negative",
+            "why": "the lower bound is inclusive",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_latitude('-90')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": -90.0,
+                "expected_repr": "-90.0",
+                "actual": -90.0,
+                "actual_repr": "-90.0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "upper-bound",
+            "why": "the upper bound is inclusive",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_latitude('90')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 90.0,
+                "expected_repr": "90.0",
+                "actual": 90.0,
+                "actual_repr": "90.0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "just-over",
+            "why": "just past the upper bound",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_latitude('90.1')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "out-of-range",
+            "why": "latitude 91 is out of range",
+            "tags": [],
+            "visible": true,
+            "call": "parse_latitude('91')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "under-range",
+            "why": "below the lower bound",
+            "tags": [],
+            "visible": true,
+            "call": "parse_latitude('-91')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "bad-format",
+            "why": "format is checked before range",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "parse_latitude('.5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "letters",
+            "why": "not a number",
+            "tags": [],
+            "visible": true,
+            "call": "parse_latitude('abc')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          }
+        ],
+        "status": "pass",
+        "passed": 9,
+        "total": 9
+      },
+      {
+        "target": "parse_longitude",
+        "kind": "pure",
+        "signature": "def parse_longitude(text: str) -> float | None",
+        "results": [
+          {
+            "case_id": "plain",
+            "why": "valid longitude becomes a float",
+            "tags": [
+              "happy"
+            ],
+            "visible": true,
+            "call": "parse_longitude('-122')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": -122.0,
+                "expected_repr": "-122.0",
+                "actual": -122.0,
+                "actual_repr": "-122.0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "upper-bound",
+            "why": "the upper bound is inclusive",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_longitude('180')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 180.0,
+                "expected_repr": "180.0",
+                "actual": 180.0,
+                "actual_repr": "180.0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "lower-bound",
+            "why": "the lower bound is inclusive",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_longitude('-180')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": -180.0,
+                "expected_repr": "-180.0",
+                "actual": -180.0,
+                "actual_repr": "-180.0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "just-over",
+            "why": "past the upper bound",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_longitude('180.5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "latitude-range-is-wider-here",
+            "why": "100 is invalid as a latitude but fine as a longitude",
+            "tags": [
+              "trap"
+            ],
+            "visible": true,
+            "call": "parse_longitude('100')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 100.0,
+                "expected_repr": "100.0",
+                "actual": 100.0,
+                "actual_repr": "100.0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "exponent",
+            "why": "format is rejected before range",
+            "tags": [],
+            "visible": true,
+            "call": "parse_longitude('1e5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          }
+        ],
+        "status": "pass",
+        "passed": 6,
+        "total": 6
+      },
+      {
+        "target": "parse_capacity",
+        "kind": "pure",
+        "signature": "def parse_capacity(text: str) -> int | None",
+        "results": [
+          {
+            "case_id": "plain",
+            "why": "digits become an int",
+            "tags": [
+              "happy"
+            ],
+            "visible": true,
+            "call": "parse_capacity('100')",
+            "duration_ms": 0.02,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 100,
+                "expected_repr": "100",
+                "actual": 100,
+                "actual_repr": "100",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "one",
+            "why": "1 is the smallest allowed capacity",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_capacity('1')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 1,
+                "expected_repr": "1",
+                "actual": 1,
+                "actual_repr": "1",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "max",
+            "why": "the maximum is inclusive",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_capacity('1000000000')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 1000000000,
+                "expected_repr": "1000000000",
+                "actual": 1000000000,
+                "actual_repr": "1000000000",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "over-max",
+            "why": "one past the maximum",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "parse_capacity('1000000001')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "zero",
+            "why": "0 is not a usable capacity",
+            "tags": [],
+            "visible": true,
+            "call": "parse_capacity('0')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "decimal",
+            "why": "capacity must be whole",
+            "tags": [],
+            "visible": true,
+            "call": "parse_capacity('1.5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "negative",
+            "why": "a minus sign is not allowed for capacity",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "parse_capacity('-5')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "letters",
+            "why": "not a number",
+            "tags": [],
+            "visible": true,
+            "call": "parse_capacity('abc')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          }
+        ],
+        "status": "pass",
+        "passed": 8,
+        "total": 8
+      },
+      {
+        "target": "parse_health_flag",
+        "kind": "pure",
+        "signature": "def parse_health_flag(text: str) -> bool | None",
+        "results": [
+          {
+            "case_id": "true",
+            "why": "the literal true",
+            "tags": [
+              "happy"
+            ],
+            "visible": true,
+            "call": "parse_health_flag('true')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": true,
+                "expected_repr": "True",
+                "actual": true,
+                "actual_repr": "True",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "false",
+            "why": "the literal false",
+            "tags": [],
+            "visible": true,
+            "call": "parse_health_flag('false')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "upper",
+            "why": "letter case does not matter",
+            "tags": [],
+            "visible": true,
+            "call": "parse_health_flag('TRUE')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": true,
+                "expected_repr": "True",
+                "actual": true,
+                "actual_repr": "True",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "mixed",
+            "why": "letter case does not matter",
+            "tags": [],
+            "visible": true,
+            "call": "parse_health_flag('FaLsE')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": false,
+                "expected_repr": "False",
+                "actual": false,
+                "actual_repr": "False",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "yes",
+            "why": "only true and false are accepted",
+            "tags": [],
+            "visible": true,
+            "call": "parse_health_flag('yes')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "one",
+            "why": "1 is not a flag",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "parse_health_flag('1')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "empty",
+            "why": "an empty field is not a flag",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "parse_health_flag('')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": null,
+                "expected_repr": "None",
+                "actual": null,
+                "actual_repr": "None",
+                "match": "is_none"
+              }
+            ],
+            "status": "pass"
+          }
+        ],
+        "status": "pass",
+        "passed": 7,
+        "total": 7
+      },
+      {
+        "target": "haversine_distance_km",
+        "kind": "pure",
+        "signature": "def haversine_distance_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float",
+        "results": [
+          {
+            "case_id": "sf-to-ny",
+            "why": "the anchor value from the spec: rounds to 4080",
+            "tags": [
+              "happy"
+            ],
+            "visible": true,
+            "call": "haversine_distance_km(38, -122, 41, -74)",
+            "duration_ms": 0.04,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 4080.0063492866607,
+                "expected_repr": "4080.0063492866607",
+                "actual": 4080.0063492866607,
+                "actual_repr": "4080.0063492866607",
+                "match": "approx"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "same-point",
+            "why": "zero distance",
+            "tags": [],
+            "visible": true,
+            "call": "haversine_distance_km(0, 0, 0, 0)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 0.0,
+                "expected_repr": "0.0",
+                "actual": 0.0,
+                "actual_repr": "0.0",
+                "match": "approx"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "one-degree-of-longitude",
+            "why": "one degree at the equator",
+            "tags": [],
+            "visible": true,
+            "call": "haversine_distance_km(0, 0, 0, 1)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 111.19492664455873,
+                "expected_repr": "111.19492664455873",
+                "actual": 111.19492664455873,
+                "actual_repr": "111.19492664455873",
+                "match": "approx"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "pole-to-pole",
+            "why": "half the circumference",
+            "tags": [
+              "boundary"
+            ],
+            "visible": true,
+            "call": "haversine_distance_km(-90, 0, 90, 0)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 20015.086796020572,
+                "expected_repr": "20015.086796020572",
+                "actual": 20015.086796020572,
+                "actual_repr": "20015.086796020572",
+                "match": "approx"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "exact-not-rounded",
+            "why": "this function must return the exact distance, never a rounded one",
+            "tags": [
+              "trap"
+            ],
+            "visible": true,
+            "call": "haversine_distance_km(0, 0, 10, 10)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 1568.520556798576,
+                "expected_repr": "1568.520556798576",
+                "actual": 1568.520556798576,
+                "actual_repr": "1568.520556798576",
+                "match": "approx"
+              }
+            ],
+            "status": "pass"
+          }
+        ],
+        "status": "pass",
+        "passed": 5,
+        "total": 5
+      },
+      {
+        "target": "round_distance",
+        "kind": "pure",
+        "signature": "def round_distance(distance_km: float) -> int",
+        "results": [
+          {
+            "case_id": "typical",
+            "why": "rounds down to 4080",
+            "tags": [
+              "happy"
+            ],
+            "visible": true,
+            "call": "round_distance(4080.0063492866607)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 4080,
+                "expected_repr": "4080",
+                "actual": 4080,
+                "actual_repr": "4080",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "zero",
+            "why": "zero stays zero",
+            "tags": [],
+            "visible": true,
+            "call": "round_distance(0.0)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 0,
+                "expected_repr": "0",
+                "actual": 0,
+                "actual_repr": "0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "half-up",
+            "why": "halves go UP -- python's round(2.5) gives 2, which is wrong here",
+            "tags": [
+              "trap"
+            ],
+            "visible": true,
+            "call": "round_distance(2.5)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 3,
+                "expected_repr": "3",
+                "actual": 3,
+                "actual_repr": "3",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "half-up-again",
+            "why": "round() would also give 4 here",
+            "tags": [
+              "trap"
+            ],
+            "visible": true,
+            "call": "round_distance(3.5)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 4,
+                "expected_repr": "4",
+                "actual": 4,
+                "actual_repr": "4",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "below-half",
+            "why": "rounds down",
+            "tags": [],
+            "visible": true,
+            "call": "round_distance(1.49)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 1,
+                "expected_repr": "1",
+                "actual": 1,
+                "actual_repr": "1",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "just-above-half",
+            "why": "rounds up",
+            "tags": [],
+            "visible": true,
+            "call": "round_distance(1.51)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 2,
+                "expected_repr": "2",
+                "actual": 2,
+                "actual_repr": "2",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          }
+        ],
+        "status": "pass",
+        "passed": 6,
+        "total": 6
+      },
+      {
+        "target": "handle_register",
+        "kind": "stateful",
+        "signature": "def handle_register(fields: list[str], datacenters: dict) -> str",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'handle_register' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "handle_set_healthy",
+        "kind": "stateful",
+        "signature": "def handle_set_healthy(fields: list[str], datacenters: dict) -> str",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'handle_set_healthy' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "handle_distance",
+        "kind": "pure",
+        "signature": "def handle_distance(fields: list[str]) -> str",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'handle_distance' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "rank_healthy_candidates",
+        "kind": "pure",
+        "signature": "def rank_healthy_candidates(lat: float, lon: float, datacenters: dict) -> list[tuple[str, float]]",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'rank_healthy_candidates' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "handle_route",
+        "kind": "stateful",
+        "signature": "def handle_route(fields: list[str], datacenters: dict) -> str",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'handle_route' has an empty body -- nothing to test yet."
+      },
+      {
+        "target": "solveRequestRoutingSystem",
+        "kind": "pure",
+        "signature": "def solveRequestRoutingSystem(input)",
+        "results": [
+          {
+            "case_id": "example-1-register-and-health",
+            "why": "duplicate names, latitude 91, capacity 0, unknown name in SET_HEALTHY",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('REGISTER us-west 38 -122 100\\nREGISTER us-east 41 -74 150\\nREGISTER us-west 50 -100 50\\nREGISTER invalid-node 91 0 100\\nREGISTER invalid-cap 0 0 0\\nSET_HEALTHY... [43 more chars])",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "OK",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "OK",
+                  "ERROR"
+                ],
+                "expected_repr": "['OK', 'OK', 'ERROR', 'ERROR', 'ERROR', 'OK', 'ERROR']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "example-2-distance",
+            "why": "Haversine result and rounding",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('DISTANCE 38 -122 41 -74\\nDISTANCE 0 0 0 0\\nDISTANCE 91 0 0 0')",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "4080",
+                  "0",
+                  "ERROR"
+                ],
+                "expected_repr": "['4080', '0', 'ERROR']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "example-3-routing",
+            "why": "unhealthy nodes skipped, name tie-break, capacity running out",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('REGISTER node-A 0 0 1\\nREGISTER node-B 0 0 1\\nREGISTER node-C 10 10 100\\nSET_HEALTHY node-C false\\nROUTE 0 0\\nROUTE 0 0\\nROUTE 0 0')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "OK",
+                  "OK",
+                  "OK",
+                  "OK",
+                  "node-A 0 node-A,node-B",
+                  "node-B 0 node-A,node-B",
+                  "None node-A,node-B"
+                ],
+                "expected_repr": "['OK', 'OK', 'OK', 'OK', 'node-A 0 node-A,node-B', 'node-B 0 node-A,node-B', 'None node-A,node-B']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "example-4-parsing-and-blank-lines",
+            "why": "lowercase command, bad fields, blank line (no output), unknown command",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('register a 0 0 1\\nREGISTER a abc 0 1\\nREGISTER a 0 0 1.5\\nREGISTER a 0 0\\n\\nREGISTER a 1.5 -2 1\\nROUTE 91 0\\nDISTANCE 0 0 0\\nPING\\nROUTE 1.5 -2')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "a 0 a"
+                ],
+                "expected_repr": "['ERROR', 'ERROR', 'ERROR', 'ERROR', 'OK', 'ERROR', 'ERROR', 'ERROR', 'a 0 a']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "example-5-mixed",
+            "why": "registration after a health change",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('REGISTER us-west 38 -122 100\\nREGISTER us-east 41 -74 150\\nREGISTER eu-west 52 0 200\\nSET_HEALTHY us-east false\\nREGISTER us-west 50 -100 50\\nREGISTER invalid ... [34 more chars])",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "OK",
+                  "OK",
+                  "OK",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR"
+                ],
+                "expected_repr": "['OK', 'OK', 'OK', 'OK', 'ERROR', 'ERROR', 'ERROR']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "whitespace-and-empty-input",
+            "why": "blank lines produce no output and extra spacing is fine",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('   \\n\\nREGISTER   a    0   0   5\\n   \\nROUTE 0 0')",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": [
+                  "OK",
+                  "a 0 a"
+                ],
+                "expected_repr": "['OK', 'a 0 a']",
+                "actual": [],
+                "actual_repr": "[]",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          }
+        ],
+        "status": "fail",
+        "passed": 0,
+        "total": 6
+      }
+    ],
+    "import_output": ""
+  }
+}

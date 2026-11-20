@@ -1,0 +1,198 @@
+{
+  "target": "handle_set_healthy",
+  "cases": [
+    {
+      "id": "turn-off",
+      "args": [
+        [
+          "us-east",
+          "false"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "OK",
+        "state": {
+          "dcs": {
+            "us-east": {
+              "lat": 41.0,
+              "lon": -74.0,
+              "capacity": 150,
+              "healthy": false,
+              "load": 7
+            }
+          }
+        }
+      },
+      "why": "only healthy changes -- load is left alone",
+      "given": {
+        "dcs": {
+          "us-east": {
+            "lat": 41.0,
+            "lon": -74.0,
+            "capacity": 150,
+            "healthy": true,
+            "load": 7
+          }
+        }
+      },
+      "tags": [
+        "happy",
+        "state"
+      ]
+    },
+    {
+      "id": "case-insensitive",
+      "args": [
+        [
+          "us-east",
+          "TRUE"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "OK",
+        "state": {
+          "dcs": {
+            "us-east": {
+              "lat": 41.0,
+              "lon": -74.0,
+              "capacity": 150,
+              "healthy": true,
+              "load": 7
+            }
+          }
+        }
+      },
+      "why": "letter case does not matter",
+      "given": {
+        "dcs": {
+          "us-east": {
+            "lat": 41.0,
+            "lon": -74.0,
+            "capacity": 150,
+            "healthy": false,
+            "load": 7
+          }
+        }
+      }
+    },
+    {
+      "id": "unknown-name",
+      "args": [
+        [
+          "fake-node",
+          "true"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "ERROR",
+        "state": {
+          "dcs": {
+            "us-east": {
+              "lat": 41.0,
+              "lon": -74.0,
+              "capacity": 150,
+              "healthy": true,
+              "load": 7
+            }
+          }
+        }
+      },
+      "why": "no such datacenter, and nothing changes",
+      "given": {
+        "dcs": {
+          "us-east": {
+            "lat": 41.0,
+            "lon": -74.0,
+            "capacity": 150,
+            "healthy": true,
+            "load": 7
+          }
+        }
+      },
+      "tags": [
+        "error",
+        "state"
+      ]
+    },
+    {
+      "id": "bad-flag",
+      "args": [
+        [
+          "us-east",
+          "yes"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "ERROR",
+        "state": {
+          "dcs": {
+            "us-east": {
+              "lat": 41.0,
+              "lon": -74.0,
+              "capacity": 150,
+              "healthy": true,
+              "load": 7
+            }
+          }
+        }
+      },
+      "why": "yes is not a valid flag",
+      "given": {
+        "dcs": {
+          "us-east": {
+            "lat": 41.0,
+            "lon": -74.0,
+            "capacity": 150,
+            "healthy": true,
+            "load": 7
+          }
+        }
+      },
+      "tags": [
+        "error"
+      ]
+    },
+    {
+      "id": "missing-field",
+      "args": [
+        [
+          "us-east"
+        ],
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": "ERROR",
+        "state": {
+          "dcs": {
+            "us-east": {
+              "lat": 41.0,
+              "lon": -74.0,
+              "capacity": 150,
+              "healthy": true,
+              "load": 7
+            }
+          }
+        }
+      },
+      "why": "one field instead of two",
+      "given": {
+        "dcs": {
+          "us-east": {
+            "lat": 41.0,
+            "lon": -74.0,
+            "capacity": 150,
+            "healthy": true,
+            "load": 7
+          }
+        }
+      },
+      "tags": [
+        "error"
+      ]
+    }
+  ]
+}

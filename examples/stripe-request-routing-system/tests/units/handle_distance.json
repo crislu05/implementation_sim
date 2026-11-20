@@ -1,0 +1,109 @@
+{
+  "target": "handle_distance",
+  "cases": [
+    {
+      "id": "sf-to-ny",
+      "args": [
+        [
+          "38",
+          "-122",
+          "41",
+          "-74"
+        ]
+      ],
+      "expect": {
+        "returns": "4080"
+      },
+      "why": "the anchor value, returned as a string",
+      "tags": [
+        "happy"
+      ]
+    },
+    {
+      "id": "same-point",
+      "args": [
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      ],
+      "expect": {
+        "returns": "0"
+      },
+      "why": "zero distance"
+    },
+    {
+      "id": "returns-a-string",
+      "args": [
+        [
+          "0",
+          "0",
+          "0",
+          "1"
+        ]
+      ],
+      "expect": {
+        "returns": "111"
+      },
+      "why": "every command returns a string, never an int",
+      "tags": [
+        "trap"
+      ]
+    },
+    {
+      "id": "latitude-out-of-range",
+      "args": [
+        [
+          "91",
+          "0",
+          "0",
+          "0"
+        ]
+      ],
+      "expect": {
+        "returns": "ERROR"
+      },
+      "why": "range is checked in every command",
+      "tags": [
+        "error"
+      ]
+    },
+    {
+      "id": "longitude-out-of-range",
+      "args": [
+        [
+          "0",
+          "181",
+          "0",
+          "0"
+        ]
+      ],
+      "expect": {
+        "returns": "ERROR"
+      },
+      "why": "longitude bound applies to the second field",
+      "tags": [
+        "error"
+      ]
+    },
+    {
+      "id": "three-fields",
+      "args": [
+        [
+          "0",
+          "0",
+          "0"
+        ]
+      ],
+      "expect": {
+        "returns": "ERROR"
+      },
+      "why": "field count must be exact",
+      "tags": [
+        "error"
+      ]
+    }
+  ]
+}

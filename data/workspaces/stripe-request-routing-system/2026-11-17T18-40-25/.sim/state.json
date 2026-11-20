@@ -1,0 +1,103 @@
+{
+  "created_at": "2026-11-17T18:40:25+00:00",
+  "bundle_id": "stripe-request-routing-system",
+  "bundle_title": "Request Routing System",
+  "unit_status": {
+    "is_plain_decimal": {
+      "status": "pass",
+      "passed": 10,
+      "total": 10,
+      "at": "2026-11-17T19:18:00+00:00",
+      "code_hash": "6ac761ce6386"
+    },
+    "parse_latitude": {
+      "status": "pass",
+      "passed": 9,
+      "total": 9,
+      "at": "2026-11-17T19:18:00+00:00",
+      "code_hash": "6ac761ce6386"
+    },
+    "parse_longitude": {
+      "status": "pass",
+      "passed": 6,
+      "total": 6,
+      "at": "2026-11-17T19:18:00+00:00",
+      "code_hash": "6ac761ce6386"
+    },
+    "parse_capacity": {
+      "status": "pass",
+      "passed": 8,
+      "total": 8,
+      "at": "2026-11-17T19:18:00+00:00",
+      "code_hash": "6ac761ce6386"
+    },
+    "parse_health_flag": {
+      "status": "pass",
+      "passed": 7,
+      "total": 7,
+      "at": "2026-11-17T19:18:00+00:00",
+      "code_hash": "6ac761ce6386"
+    },
+    "haversine_distance_km": {
+      "status": "pass",
+      "passed": 5,
+      "total": 5,
+      "at": "2026-11-17T19:18:00+00:00",
+      "code_hash": "6ac761ce6386"
+    },
+    "round_distance": {
+      "status": "pass",
+      "passed": 6,
+      "total": 6,
+      "at": "2026-11-17T19:18:00+00:00",
+      "code_hash": "6ac761ce6386"
+    },
+    "handle_register": {
+      "status": "pass",
+      "passed": 8,
+      "total": 8,
+      "at": "2026-11-17T19:23:52+00:00",
+      "code_hash": "f762525b2296"
+    },
+    "handle_set_healthy": {
+      "status": "pass",
+      "passed": 5,
+      "total": 5,
+      "at": "2026-11-17T19:30:38+00:00",
+      "code_hash": "c157e7d414ae"
+    },
+    "handle_distance": {
+      "status": "pass",
+      "passed": 6,
+      "total": 6,
+      "at": "2026-11-17T19:35:05+00:00",
+      "code_hash": "a67f8082ef4b"
+    },
+    "rank_healthy_candidates": {
+      "status": "pass",
+      "passed": 6,
+      "total": 6,
+      "at": "2026-11-18T16:01:41+00:00",
+      "code_hash": "94b30de3ad8a"
+    },
+    "handle_route": {
+      "status": "pass",
+      "passed": 7,
+      "total": 7,
+      "at": "2026-11-18T16:16:53+00:00",
+      "code_hash": "e4dea2b27fb4"
+    },
+    "solveRequestRoutingSystem": {
+      "status": "pass",
+      "passed": 6,
+      "total": 6,
+      "at": "2026-11-18T16:26:59+00:00",
+      "code_hash": "dddf2e20adec"
+    }
+  },
+  "elapsed_seconds": 5730,
+  "updated_at": "2026-11-18T16:27:20+00:00",
+  "bytes": 6647,
+  "last_run_id": "20261118T162659-pipeline",
+  "code_hash": "dddf2e20adec"
+}

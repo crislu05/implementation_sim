@@ -1,0 +1,110 @@
+{
+  "target": "parse_latitude",
+  "cases": [
+    {
+      "id": "plain",
+      "args": [
+        "38"
+      ],
+      "expect": {
+        "returns": 38.0
+      },
+      "why": "valid latitude becomes a float",
+      "tags": [
+        "happy"
+      ]
+    },
+    {
+      "id": "decimal",
+      "args": [
+        "1.5"
+      ],
+      "expect": {
+        "returns": 1.5
+      },
+      "why": "decimals are fine"
+    },
+    {
+      "id": "negative",
+      "args": [
+        "-90"
+      ],
+      "expect": {
+        "returns": -90.0
+      },
+      "why": "the lower bound is inclusive",
+      "tags": [
+        "boundary"
+      ]
+    },
+    {
+      "id": "upper-bound",
+      "args": [
+        "90"
+      ],
+      "expect": {
+        "returns": 90.0
+      },
+      "why": "the upper bound is inclusive",
+      "tags": [
+        "boundary"
+      ]
+    },
+    {
+      "id": "just-over",
+      "args": [
+        "90.1"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "just past the upper bound",
+      "tags": [
+        "boundary"
+      ]
+    },
+    {
+      "id": "out-of-range",
+      "args": [
+        "91"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "latitude 91 is out of range"
+    },
+    {
+      "id": "under-range",
+      "args": [
+        "-91"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "below the lower bound"
+    },
+    {
+      "id": "bad-format",
+      "args": [
+        ".5"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "format is checked before range",
+      "tags": [
+        "edge"
+      ]
+    },
+    {
+      "id": "letters",
+      "args": [
+        "abc"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "not a number"
+    }
+  ]
+}

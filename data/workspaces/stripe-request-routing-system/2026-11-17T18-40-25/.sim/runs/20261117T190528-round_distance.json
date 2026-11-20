@@ -1,0 +1,26 @@
+{
+  "run_id": "20261117T190528-round_distance",
+  "at": "2026-11-17T19:05:28+00:00",
+  "selection": "round_distance",
+  "summary": {
+    "passed": 0,
+    "failed": 0,
+    "total": 0
+  },
+  "report": {
+    "targets": [],
+    "import_error": {
+      "type": "IndentationError",
+      "message": "expected an indented block after function definition on line 74 (solution.py, line 83)",
+      "frames": [
+        "  load_solution, line 121:  spec.loader.exec_module(module)",
+        "  exec_module, line 991:  ",
+        "  get_code, line 1129:  ",
+        "  source_to_code, line 1059:  ",
+        "  _call_with_frames_removed, line 488:  "
+      ],
+      "line": null,
+      "text": "Traceback (most recent call last):\n  File \"/Users/pythagoraslu/Desktop/implementation_sim/simserver/runner.py\", line 309, in main\n    module, import_output = load_solution(solution_path)\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/pythagoraslu/Desktop/implementation_sim/simserver/runner.py\", line 121, in load_solution\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/Users/pythagoraslu/Desktop/implementation_sim/data/workspaces/stripe-request-routing-system/2026-11-17T18-40-25/solution.py\", line 83\n    def handle_set_healthy(fields, datacenters):\n    ^^^\nIndentationError: expected an indented block after function definition on line 74\n"
+    }
+  }
+}

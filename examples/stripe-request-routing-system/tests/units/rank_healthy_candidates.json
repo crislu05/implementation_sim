@@ -1,0 +1,246 @@
+{
+  "target": "rank_healthy_candidates",
+  "cases": [
+    {
+      "id": "tie-breaks-on-name",
+      "args": [
+        0,
+        0,
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": [
+          [
+            "node-A",
+            0.0
+          ],
+          [
+            "node-B",
+            0.0
+          ]
+        ],
+        "match": "approx",
+        "tol": 1e-06
+      },
+      "why": "an exact distance tie is broken by name",
+      "given": {
+        "dcs": {
+          "node-A": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          },
+          "node-B": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "happy"
+      ]
+    },
+    {
+      "id": "nearest-first",
+      "args": [
+        0,
+        0,
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": [
+          [
+            "near",
+            0.0
+          ],
+          [
+            "far",
+            1568.520556798576
+          ]
+        ],
+        "match": "approx",
+        "tol": 1e-06
+      },
+      "why": "ordered by distance, nearest first",
+      "given": {
+        "dcs": {
+          "far": {
+            "lat": 10.0,
+            "lon": 10.0,
+            "capacity": 5,
+            "healthy": true,
+            "load": 0
+          },
+          "near": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 5,
+            "healthy": true,
+            "load": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "skips-unhealthy",
+      "args": [
+        0,
+        0,
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": [
+          [
+            "node-A",
+            0.0
+          ]
+        ],
+        "match": "approx",
+        "tol": 1e-06
+      },
+      "why": "unhealthy datacenters are not candidates",
+      "given": {
+        "dcs": {
+          "node-A": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          },
+          "node-B": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": false,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "state"
+      ]
+    },
+    {
+      "id": "none-healthy",
+      "args": [
+        0,
+        0,
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": [],
+        "match": "approx",
+        "tol": 1e-06
+      },
+      "why": "no healthy datacenters means no candidates",
+      "given": {
+        "dcs": {
+          "node-A": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": false,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "edge"
+      ]
+    },
+    {
+      "id": "full-ones-still-ranked",
+      "args": [
+        0,
+        0,
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": [
+          [
+            "node-A",
+            0.0
+          ],
+          [
+            "node-B",
+            0.0
+          ]
+        ],
+        "match": "approx",
+        "tol": 1e-06
+      },
+      "why": "ranking ignores load -- full candidates still appear",
+      "given": {
+        "dcs": {
+          "node-A": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 1
+          },
+          "node-B": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "trap"
+      ]
+    },
+    {
+      "id": "character-code-order",
+      "args": [
+        0,
+        0,
+        "$given.dcs"
+      ],
+      "expect": {
+        "returns": [
+          [
+            "B",
+            0.0
+          ],
+          [
+            "a",
+            0.0
+          ]
+        ],
+        "match": "approx",
+        "tol": 1e-06
+      },
+      "why": "character-code order, so uppercase B sorts before lowercase a",
+      "given": {
+        "dcs": {
+          "a": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          },
+          "B": {
+            "lat": 0.0,
+            "lon": 0.0,
+            "capacity": 1,
+            "healthy": true,
+            "load": 0
+          }
+        }
+      },
+      "tags": [
+        "trap"
+      ]
+    }
+  ]
+}

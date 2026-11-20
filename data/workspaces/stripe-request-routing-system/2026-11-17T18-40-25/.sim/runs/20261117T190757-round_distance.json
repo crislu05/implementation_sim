@@ -1,0 +1,157 @@
+{
+  "run_id": "20261117T190757-round_distance",
+  "at": "2026-11-17T19:07:57+00:00",
+  "selection": "round_distance",
+  "summary": {
+    "passed": 5,
+    "failed": 1,
+    "total": 6
+  },
+  "report": {
+    "targets": [
+      {
+        "target": "round_distance",
+        "kind": "pure",
+        "signature": "def round_distance(distance_km: float) -> int",
+        "results": [
+          {
+            "case_id": "typical",
+            "why": "rounds down to 4080",
+            "tags": [
+              "happy"
+            ],
+            "visible": true,
+            "call": "round_distance(4080.0063492866607)",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 4080,
+                "expected_repr": "4080",
+                "actual": 4080,
+                "actual_repr": "4080",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "zero",
+            "why": "zero stays zero",
+            "tags": [],
+            "visible": true,
+            "call": "round_distance(0.0)",
+            "duration_ms": 0.01,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 0,
+                "expected_repr": "0",
+                "actual": 0,
+                "actual_repr": "0",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "half-up",
+            "why": "halves go UP -- python's round(2.5) gives 2, which is wrong here",
+            "tags": [
+              "trap"
+            ],
+            "visible": true,
+            "call": "round_distance(2.5)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": false,
+                "expected": 3,
+                "expected_repr": "3",
+                "actual": 2,
+                "actual_repr": "2",
+                "match": "equal"
+              }
+            ],
+            "status": "fail"
+          },
+          {
+            "case_id": "half-up-again",
+            "why": "round() would also give 4 here",
+            "tags": [
+              "trap"
+            ],
+            "visible": true,
+            "call": "round_distance(3.5)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 4,
+                "expected_repr": "4",
+                "actual": 4,
+                "actual_repr": "4",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "below-half",
+            "why": "rounds down",
+            "tags": [],
+            "visible": true,
+            "call": "round_distance(1.49)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 1,
+                "expected_repr": "1",
+                "actual": 1,
+                "actual_repr": "1",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "just-above-half",
+            "why": "rounds up",
+            "tags": [],
+            "visible": true,
+            "call": "round_distance(1.51)",
+            "duration_ms": 0.0,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": 2,
+                "expected_repr": "2",
+                "actual": 2,
+                "actual_repr": "2",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          }
+        ],
+        "status": "fail",
+        "passed": 5,
+        "total": 6
+      }
+    ],
+    "import_output": ""
+  }
+}

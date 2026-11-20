@@ -1,0 +1,216 @@
+{
+  "bundle_version": "1.0",
+  "id": "stripe-request-routing-system",
+  "title": "Request Routing System",
+  "source": "Stripe",
+  "language": "python",
+  "estimated_minutes": 75,
+  "entrypoint": "solveRequestRoutingSystem",
+  "skeleton": "skeleton.py",
+  "reference": "reference/solution.py",
+  "docs": [
+    {
+      "id": "overview",
+      "title": "Context",
+      "file": "docs/overview.md"
+    },
+    {
+      "id": "commands",
+      "title": "Commands",
+      "file": "docs/commands.md"
+    },
+    {
+      "id": "validation",
+      "title": "Validation",
+      "file": "docs/validation.md"
+    },
+    {
+      "id": "glossary",
+      "title": "Technical terms",
+      "file": "docs/glossary.md"
+    },
+    {
+      "id": "examples",
+      "title": "Worked examples",
+      "file": "docs/examples.md"
+    }
+  ],
+  "units": [
+    {
+      "id": "is_plain_decimal",
+      "signature": "def is_plain_decimal(text: str) -> bool",
+      "kind": "pure",
+      "group": "validation helpers",
+      "order": 1,
+      "summary": "format check for a plain decimal number",
+      "depends_on": [],
+      "mutates": [],
+      "spec": "units/is_plain_decimal.md",
+      "tests": "tests/units/is_plain_decimal.json"
+    },
+    {
+      "id": "parse_latitude",
+      "signature": "def parse_latitude(text: str) -> float | None",
+      "kind": "pure",
+      "group": "validation helpers",
+      "order": 2,
+      "summary": "plain decimal within [-90, 90], else None",
+      "depends_on": [
+        "is_plain_decimal"
+      ],
+      "mutates": [],
+      "spec": "units/parse_latitude.md",
+      "tests": "tests/units/parse_latitude.json"
+    },
+    {
+      "id": "parse_longitude",
+      "signature": "def parse_longitude(text: str) -> float | None",
+      "kind": "pure",
+      "group": "validation helpers",
+      "order": 3,
+      "summary": "plain decimal within [-180, 180], else None",
+      "depends_on": [
+        "is_plain_decimal"
+      ],
+      "mutates": [],
+      "spec": "units/parse_longitude.md",
+      "tests": "tests/units/parse_longitude.json"
+    },
+    {
+      "id": "parse_capacity",
+      "signature": "def parse_capacity(text: str) -> int | None",
+      "kind": "pure",
+      "group": "validation helpers",
+      "order": 4,
+      "summary": "digits only, 1 to 1,000,000,000, else None",
+      "depends_on": [],
+      "mutates": [],
+      "spec": "units/parse_capacity.md",
+      "tests": "tests/units/parse_capacity.json"
+    },
+    {
+      "id": "parse_health_flag",
+      "signature": "def parse_health_flag(text: str) -> bool | None",
+      "kind": "pure",
+      "group": "validation helpers",
+      "order": 5,
+      "summary": "true/false in any letter case, else None",
+      "depends_on": [],
+      "mutates": [],
+      "spec": "units/parse_health_flag.md",
+      "tests": "tests/units/parse_health_flag.json"
+    },
+    {
+      "id": "haversine_distance_km",
+      "signature": "def haversine_distance_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float",
+      "kind": "pure",
+      "group": "geometry",
+      "order": 6,
+      "summary": "exact great-circle distance in km",
+      "depends_on": [],
+      "mutates": [],
+      "spec": "units/haversine_distance_km.md",
+      "tests": "tests/units/haversine_distance_km.json"
+    },
+    {
+      "id": "round_distance",
+      "signature": "def round_distance(distance_km: float) -> int",
+      "kind": "pure",
+      "group": "geometry",
+      "order": 7,
+      "summary": "round halves up, for display only",
+      "depends_on": [],
+      "mutates": [],
+      "spec": "units/round_distance.md",
+      "tests": "tests/units/round_distance.json"
+    },
+    {
+      "id": "handle_register",
+      "signature": "def handle_register(fields: list[str], datacenters: dict) -> str",
+      "kind": "stateful",
+      "group": "command handlers",
+      "order": 8,
+      "summary": "add a new datacenter",
+      "depends_on": [
+        "parse_latitude",
+        "parse_longitude",
+        "parse_capacity"
+      ],
+      "mutates": [
+        "datacenters"
+      ],
+      "spec": "units/handle_register.md",
+      "tests": "tests/units/handle_register.json"
+    },
+    {
+      "id": "handle_set_healthy",
+      "signature": "def handle_set_healthy(fields: list[str], datacenters: dict) -> str",
+      "kind": "stateful",
+      "group": "command handlers",
+      "order": 9,
+      "summary": "turn a datacenter on or off",
+      "depends_on": [
+        "parse_health_flag"
+      ],
+      "mutates": [
+        "datacenters"
+      ],
+      "spec": "units/handle_set_healthy.md",
+      "tests": "tests/units/handle_set_healthy.json"
+    },
+    {
+      "id": "handle_distance",
+      "signature": "def handle_distance(fields: list[str]) -> str",
+      "kind": "pure",
+      "group": "command handlers",
+      "order": 10,
+      "summary": "distance between two points, stateless",
+      "depends_on": [
+        "parse_latitude",
+        "parse_longitude",
+        "haversine_distance_km",
+        "round_distance"
+      ],
+      "mutates": [],
+      "spec": "units/handle_distance.md",
+      "tests": "tests/units/handle_distance.json"
+    },
+    {
+      "id": "rank_healthy_candidates",
+      "signature": "def rank_healthy_candidates(lat: float, lon: float, datacenters: dict) -> list[tuple[str, float]]",
+      "kind": "pure",
+      "group": "command handlers",
+      "order": 11,
+      "summary": "healthy datacenters ordered by distance then name",
+      "depends_on": [
+        "haversine_distance_km"
+      ],
+      "mutates": [],
+      "spec": "units/rank_healthy_candidates.md",
+      "tests": "tests/units/rank_healthy_candidates.json"
+    },
+    {
+      "id": "handle_route",
+      "signature": "def handle_route(fields: list[str], datacenters: dict) -> str",
+      "kind": "stateful",
+      "group": "command handlers",
+      "order": 12,
+      "summary": "send one request to a datacenter",
+      "depends_on": [
+        "parse_latitude",
+        "parse_longitude",
+        "rank_healthy_candidates",
+        "round_distance"
+      ],
+      "mutates": [
+        "datacenters"
+      ],
+      "spec": "units/handle_route.md",
+      "tests": "tests/units/handle_route.json"
+    }
+  ],
+  "pipeline": {
+    "tests": "tests/pipeline.json",
+    "summary": "The whole router, end to end: one command per line in, one string per command out."
+  }
+}

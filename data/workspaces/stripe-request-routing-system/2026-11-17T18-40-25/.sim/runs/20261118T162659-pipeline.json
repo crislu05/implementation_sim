@@ -1,0 +1,235 @@
+{
+  "run_id": "20261118T162659-pipeline",
+  "at": "2026-11-18T16:26:59+00:00",
+  "selection": "pipeline",
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6
+  },
+  "report": {
+    "targets": [
+      {
+        "target": "solveRequestRoutingSystem",
+        "kind": "pure",
+        "signature": "def solveRequestRoutingSystem(input)",
+        "results": [
+          {
+            "case_id": "example-1-register-and-health",
+            "why": "duplicate names, latitude 91, capacity 0, unknown name in SET_HEALTHY",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('REGISTER us-west 38 -122 100\\nREGISTER us-east 41 -74 150\\nREGISTER us-west 50 -100 50\\nREGISTER invalid-node 91 0 100\\nREGISTER invalid-cap 0 0 0\\nSET_HEALTHY... [43 more chars])",
+            "duration_ms": 0.14,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": [
+                  "OK",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "OK",
+                  "ERROR"
+                ],
+                "expected_repr": "['OK', 'OK', 'ERROR', 'ERROR', 'ERROR', 'OK', 'ERROR']",
+                "actual": [
+                  "OK",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "OK",
+                  "ERROR"
+                ],
+                "actual_repr": "['OK', 'OK', 'ERROR', 'ERROR', 'ERROR', 'OK', 'ERROR']",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "example-2-distance",
+            "why": "Haversine result and rounding",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('DISTANCE 38 -122 41 -74\\nDISTANCE 0 0 0 0\\nDISTANCE 91 0 0 0')",
+            "duration_ms": 0.04,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": [
+                  "4080",
+                  "0",
+                  "ERROR"
+                ],
+                "expected_repr": "['4080', '0', 'ERROR']",
+                "actual": [
+                  "4080",
+                  "0",
+                  "ERROR"
+                ],
+                "actual_repr": "['4080', '0', 'ERROR']",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "example-3-routing",
+            "why": "unhealthy nodes skipped, name tie-break, capacity running out",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('REGISTER node-A 0 0 1\\nREGISTER node-B 0 0 1\\nREGISTER node-C 10 10 100\\nSET_HEALTHY node-C false\\nROUTE 0 0\\nROUTE 0 0\\nROUTE 0 0')",
+            "duration_ms": 0.05,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": [
+                  "OK",
+                  "OK",
+                  "OK",
+                  "OK",
+                  "node-A 0 node-A,node-B",
+                  "node-B 0 node-A,node-B",
+                  "None node-A,node-B"
+                ],
+                "expected_repr": "['OK', 'OK', 'OK', 'OK', 'node-A 0 node-A,node-B', 'node-B 0 node-A,node-B', 'None node-A,node-B']",
+                "actual": [
+                  "OK",
+                  "OK",
+                  "OK",
+                  "OK",
+                  "node-A 0 node-A,node-B",
+                  "node-B 0 node-A,node-B",
+                  "None node-A,node-B"
+                ],
+                "actual_repr": "['OK', 'OK', 'OK', 'OK', 'node-A 0 node-A,node-B', 'node-B 0 node-A,node-B', 'None node-A,node-B']",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "example-4-parsing-and-blank-lines",
+            "why": "lowercase command, bad fields, blank line (no output), unknown command",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('register a 0 0 1\\nREGISTER a abc 0 1\\nREGISTER a 0 0 1.5\\nREGISTER a 0 0\\n\\nREGISTER a 1.5 -2 1\\nROUTE 91 0\\nDISTANCE 0 0 0\\nPING\\nROUTE 1.5 -2')",
+            "duration_ms": 0.03,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": [
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "a 0 a"
+                ],
+                "expected_repr": "['ERROR', 'ERROR', 'ERROR', 'ERROR', 'OK', 'ERROR', 'ERROR', 'ERROR', 'a 0 a']",
+                "actual": [
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR",
+                  "a 0 a"
+                ],
+                "actual_repr": "['ERROR', 'ERROR', 'ERROR', 'ERROR', 'OK', 'ERROR', 'ERROR', 'ERROR', 'a 0 a']",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "example-5-mixed",
+            "why": "registration after a health change",
+            "tags": [],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('REGISTER us-west 38 -122 100\\nREGISTER us-east 41 -74 150\\nREGISTER eu-west 52 0 200\\nSET_HEALTHY us-east false\\nREGISTER us-west 50 -100 50\\nREGISTER invalid ... [34 more chars])",
+            "duration_ms": 0.02,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": [
+                  "OK",
+                  "OK",
+                  "OK",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR"
+                ],
+                "expected_repr": "['OK', 'OK', 'OK', 'OK', 'ERROR', 'ERROR', 'ERROR']",
+                "actual": [
+                  "OK",
+                  "OK",
+                  "OK",
+                  "OK",
+                  "ERROR",
+                  "ERROR",
+                  "ERROR"
+                ],
+                "actual_repr": "['OK', 'OK', 'OK', 'OK', 'ERROR', 'ERROR', 'ERROR']",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          },
+          {
+            "case_id": "whitespace-and-empty-input",
+            "why": "blank lines produce no output and extra spacing is fine",
+            "tags": [
+              "edge"
+            ],
+            "visible": true,
+            "call": "solveRequestRoutingSystem('   \\n\\nREGISTER   a    0   0   5\\n   \\nROUTE 0 0')",
+            "duration_ms": 0.02,
+            "stdout": "",
+            "checks": [
+              {
+                "label": "returns",
+                "ok": true,
+                "expected": [
+                  "OK",
+                  "a 0 a"
+                ],
+                "expected_repr": "['OK', 'a 0 a']",
+                "actual": [
+                  "OK",
+                  "a 0 a"
+                ],
+                "actual_repr": "['OK', 'a 0 a']",
+                "match": "equal"
+              }
+            ],
+            "status": "pass"
+          }
+        ],
+        "status": "pass",
+        "passed": 6,
+        "total": 6
+      }
+    ],
+    "import_output": ""
+  }
+}

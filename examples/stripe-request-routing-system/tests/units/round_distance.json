@@ -1,0 +1,74 @@
+{
+  "target": "round_distance",
+  "cases": [
+    {
+      "id": "typical",
+      "args": [
+        4080.0063492866607
+      ],
+      "expect": {
+        "returns": 4080
+      },
+      "why": "rounds down to 4080",
+      "tags": [
+        "happy"
+      ]
+    },
+    {
+      "id": "zero",
+      "args": [
+        0.0
+      ],
+      "expect": {
+        "returns": 0
+      },
+      "why": "zero stays zero"
+    },
+    {
+      "id": "half-up",
+      "args": [
+        2.5
+      ],
+      "expect": {
+        "returns": 3
+      },
+      "why": "halves go UP -- python's round(2.5) gives 2, which is wrong here",
+      "tags": [
+        "trap"
+      ]
+    },
+    {
+      "id": "half-up-again",
+      "args": [
+        3.5
+      ],
+      "expect": {
+        "returns": 4
+      },
+      "why": "round() would also give 4 here",
+      "tags": [
+        "trap"
+      ]
+    },
+    {
+      "id": "below-half",
+      "args": [
+        1.49
+      ],
+      "expect": {
+        "returns": 1
+      },
+      "why": "rounds down"
+    },
+    {
+      "id": "just-above-half",
+      "args": [
+        1.51
+      ],
+      "expect": {
+        "returns": 2
+      },
+      "why": "rounds up"
+    }
+  ]
+}

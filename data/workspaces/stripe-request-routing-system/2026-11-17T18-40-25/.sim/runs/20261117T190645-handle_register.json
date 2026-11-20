@@ -1,0 +1,23 @@
+{
+  "run_id": "20261117T190645-handle_register",
+  "at": "2026-11-17T19:06:45+00:00",
+  "selection": "handle_register",
+  "summary": {
+    "passed": 0,
+    "failed": 0,
+    "total": 0
+  },
+  "report": {
+    "targets": [
+      {
+        "target": "handle_register",
+        "kind": "stateful",
+        "signature": "def handle_register(fields: list[str], datacenters: dict) -> str",
+        "results": [],
+        "status": "not_implemented",
+        "message": "'handle_register' has an empty body -- nothing to test yet."
+      }
+    ],
+    "import_output": ""
+  }
+}

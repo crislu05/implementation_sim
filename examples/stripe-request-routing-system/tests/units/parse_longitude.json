@@ -1,0 +1,80 @@
+{
+  "target": "parse_longitude",
+  "cases": [
+    {
+      "id": "plain",
+      "args": [
+        "-122"
+      ],
+      "expect": {
+        "returns": -122.0
+      },
+      "why": "valid longitude becomes a float",
+      "tags": [
+        "happy"
+      ]
+    },
+    {
+      "id": "upper-bound",
+      "args": [
+        "180"
+      ],
+      "expect": {
+        "returns": 180.0
+      },
+      "why": "the upper bound is inclusive",
+      "tags": [
+        "boundary"
+      ]
+    },
+    {
+      "id": "lower-bound",
+      "args": [
+        "-180"
+      ],
+      "expect": {
+        "returns": -180.0
+      },
+      "why": "the lower bound is inclusive",
+      "tags": [
+        "boundary"
+      ]
+    },
+    {
+      "id": "just-over",
+      "args": [
+        "180.5"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "past the upper bound",
+      "tags": [
+        "boundary"
+      ]
+    },
+    {
+      "id": "latitude-range-is-wider-here",
+      "args": [
+        "100"
+      ],
+      "expect": {
+        "returns": 100.0
+      },
+      "why": "100 is invalid as a latitude but fine as a longitude",
+      "tags": [
+        "trap"
+      ]
+    },
+    {
+      "id": "exponent",
+      "args": [
+        "1e5"
+      ],
+      "expect": {
+        "match": "is_none"
+      },
+      "why": "format is rejected before range"
+    }
+  ]
+}
